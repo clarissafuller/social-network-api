@@ -11,10 +11,10 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    tags: [
+    reactions: [
       {
         type: Schema.Types.ObjectId,
-        ref: "tag",
+        ref: "reaction",
       },
     ],
     text: {
