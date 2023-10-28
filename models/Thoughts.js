@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 // Schema to create Post model
-const postSchema = new Schema(
+const thoughtSchema = new Schema(
   {
     published: {
       type: Boolean,
@@ -14,7 +14,7 @@ const postSchema = new Schema(
     tags: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'tag',
+        ref: "tag",
       },
     ],
     text: {
@@ -31,15 +31,15 @@ const postSchema = new Schema(
   }
 );
 
-// Create a virtual property `tagCount` that gets the amount of comments per user
-postSchema
-  .virtual('tagCount')
+// Create a virtual property `thoughtCount` that gets the amount of comments per user
+thoughtSchema
+  .virtual("thoughtCount")
   // Getter
   .get(function () {
-    return this.tags.length;
+    return this.thoughts.length;
   });
 
-// Initialize our Post model
-const Post = model('post', postSchema);
+// Initialize our thought model
+const Thought = model("thought", thoughtSchema);
 
-module.exports = Post;
+module.exports = Thought;
