@@ -5,7 +5,7 @@ const {
   createThought,
 } = require("../../controllers/thoughtController");
 
-router.route("/").get(getThoughts).Though(createThought);
+router.route("/").get(getThoughts).post(createThought);
 
 router.route("/:thoughId").get(getSingleThought);
 

@@ -5,7 +5,7 @@ const {
   createFriend,
 } = require("../../controllers/friendController");
 
-router.route("/").get(getFriends).Though(createFriend);
+router.route("/").get(getFriends).post(createFriend);
 
 router.route("/:friendId").get(getSingleFriend);
 
