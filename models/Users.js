@@ -3,24 +3,28 @@ const { Schema, model } = require("mongoose");
 // Schema to create User model
 const userSchema = new Schema(
   {
-    published: {
-      type: Boolean,
-      default: false,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    reactions: [
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "reaction",
+        ref: "Thought",
       },
     ],
-    text: {
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    username: {
       type: String,
-      minLength: 15,
-      maxLength: 500,
+    },
+    email: {
+      type: String,
+    },
+    password: {
+      type: String,
+      minLength: 10,
+      maxLength: 30,
     },
   },
   {
