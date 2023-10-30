@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-// Schema to create User model
 const userSchema = new Schema(
   {
     thoughts: [
@@ -35,15 +34,11 @@ const userSchema = new Schema(
   }
 );
 
-// Create a virtual property `userCount` that gets the amount of comments per user
-userSchema
-  .virtual("userCount")
-  // Getter
-  .get(function () {
-    return this.users.length;
-  });
+// Create a virtual property `thoughtCount` that gets the number of thoughts per user
+userSchema.virtual("thoughtCount").get(function () {
+  return this.thoughts.length;
+});
 
-// Initialize our user model
-const User = model("user", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;

@@ -6,11 +6,7 @@ const reactionSchema = new Schema(
       type: String,
       required: true,
     },
-    color: {
-      type: String,
-      default: "#008080",
-    },
-    createdAt: Date,
+    reactions: [String], // Define an array field to store reactions
   },
   {
     toJSON: {
@@ -19,13 +15,11 @@ const reactionSchema = new Schema(
   }
 );
 
-reactionSchema
-  .virtual("getReaction")
-  // Getter
-  .get(function () {
-    return `color: ${this.color}`;
-  });
+reactionSchema.virtual("reactionCount").get(function () {
+  // Calculate the number of reactions in the array
+  return this.reactions.length;
+});
 
-const Reaction = model("reaction", reactionSchema);
+const Reaction = model("Reaction", reactionSchema);
 
 module.exports = Reaction;

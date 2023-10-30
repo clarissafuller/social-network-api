@@ -1,12 +1,7 @@
 const { Schema, model } = require("mongoose");
 
-// Schema to create Post model
 const thoughtSchema = new Schema(
   {
-    published: {
-      type: Boolean,
-      default: false,
-    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -17,10 +12,13 @@ const thoughtSchema = new Schema(
         ref: "reaction",
       },
     ],
-    text: {
+    thoughttext: {
       type: String,
-      minLength: 15,
+      minLength: 2,
       maxLength: 500,
+    },
+    username: {
+      type: String,
     },
   },
   {
@@ -31,15 +29,10 @@ const thoughtSchema = new Schema(
   }
 );
 
-// Create a virtual property `thoughtCount` that gets the amount of comments per user
-thoughtSchema
-  .virtual("thoughtCount")
-  // Getter
-  .get(function () {
-    return this.thoughts.length;
-  });
+thoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
 
-// Initialize our thought model
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 
 module.exports = Thought;
