@@ -29,6 +29,36 @@ connection.once("open", async () => {
   const users = [];
   const friends = [];
 
+  //TODO: create a function to generate 10 random users with random friends to each other
+  const generateRandomUser = () => {
+    const username = Math.random().toString(36).substring(2, 12);
+    const email = `${username}@example.com`;
+    const password = Math.random().toString(36).substring(2, 12);
+
+    return { username, email, password };
+  };
+
+  const createFriendships = (userList) => {
+    const friendCount = Math.min(10, userList.length - 1); // Limit to 10 friends per user
+    for (const user of userList) {
+      const randomFriends = getRandomFriends(userList, user, friendCount);
+      user.friends = randomFriends;
+    }
+  };
+
+  //Create a looping function to generate random user with username, email, and password
+  //create random friend relationships between users
+  const getRandomFriends = (userList, user, friendCount) => {
+    const randomFriends = [];
+    while (randomFriends.length < friendCount) {
+      const randomUser = userList[Math.floor(Math.random() * userList.length)];
+      if (randomUser !== user && !user.friends.includes(randomUser._id)) {
+        randomFriends.push(randomUser._id);
+      }
+    }
+    return randomFriends;
+  };
+
   // Function to make a thought object and push it into the thoughts array
   const makeThought = (text) => {
     thoughts.push({
@@ -38,28 +68,33 @@ connection.once("open", async () => {
     });
   };
 
-  // Create 20 random reactions and push them into the reactions array
-  for (let i = 0; i < 20; i++) {
-    const reactionname = getRandomColor();
-
-    reactions.push({
-      reactionname,
-      color: reactionname,
-    });
+  // Create 10 random users and push them into the users array
+  for (let i = 0; i < 10; i++) {
+    const user = generateRandomUser();
+    users.push(user);
   }
 
-  // Wait for the reactions to be inserted into the database
-  await Reaction.collection.insertMany(reactions);
+  // Create friend relationships between users
+  createFriendships(users);
 
-  // For each of the reactions that exist, make a random thought of length 50
-  reactions.forEach(() => makeThought(getRandomThought(50)));
+  // Wait for users to be inserted into the database
+  await User.collection.insertMany(users);
 
-  // Wait for the thoughts array to be inserted into the database
+  // For each of the users, create random thoughts and insert them into the thoughts array
+  users.forEach((user) => {
+    for (let i = 0; i < 10; i++) {
+      makeThought(getRandomThought(50), user._id);
+    }
+  });
+
+  // Insert the thoughts array into the database
   await Thought.collection.insertMany(thoughts);
 
-  // Log out a pretty table for reactions and thoughts, excluding the excessively long text property
+  // Log out a pretty table for users, reactions, and thoughts
+  console.table(users, ["username", "email"]);
   console.table(reactions);
   console.table(thoughts, ["published", "reactions", "_id"]);
+
   console.timeEnd("seeding");
   process.exit(0);
 });
