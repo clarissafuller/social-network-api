@@ -55,3 +55,4 @@ Reach out to us if you have any questions!
 ![edX](https://img.shields.io/badge/edX-%2302262B.svg?style=for-the-badge&logo=edX&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Mongoose](https://img.shields.io/badge/mongoose-6DA55F?style=for-the-badge&logo=mongoose&logoColor=red)
