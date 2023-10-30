@@ -16,8 +16,8 @@ The challenge for this homework was to build an API for a social network web app
 
 ## Installation
 
-In order to use this application, you will have to run an npm start from the cloned down repository to get the code running on your localhost server. Once that is running, you'll have to open Insomnia to run the routes to test all the code. You can find all the code from the URL here:
-[Ecommerce Back End](https://github.com/clarissafuller/ecommerce-back-end-homework)
+In order to use this application, you will have to run an npm start from the cloned-down repository to get the code running on your localhost server. Once that is running, you'll have to open Insomnia to run the routes to test all the code. You can find all the code from the URL here:
+[Ecommerce Back End](https://github.com/clarissafuller/social-network-api)
 
 ## Usage/Tests
 
